@@ -1,0 +1,26 @@
+import requests
+
+def analyze_repository(repo_owner, repo_name):
+    # Make a GET request to the GitHub API to retrieve repository information
+    url = f"https://api.github.com/repos/{repo_owner}/{repo_name}"
+    response = requests.get(url)
+    
+    if response.status_code == 200:
+        repository = response.json()
+        
+        # Extract relevant information from the repository response
+        stars_count = repository['stargazers_count']
+        forks_count = repository['forks_count']
+        watchers_count = repository['watchers_count']
+        
+        # Perform analysis or display the extracted information
+        print(f"Stars: {stars_count}")
+        print(f"Forks: {forks_count}")
+        print(f"Watchers: {watchers_count}")
+    else:
+        print(f"Failed to retrieve repository information. Status code: {response.status_code}")
+
+# Example usage
+repo_owner = "adap"
+repo_name = "flower"
+analyze_repository(repo_owner, repo_name)
